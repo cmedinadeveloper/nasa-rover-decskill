@@ -45,8 +45,8 @@ sitemap*.xml
 *.tsbuildinfo
 
 # Yarn 2
+.pnp.*
 .yarn/*
-!.yarn/cache
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
