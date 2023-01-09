@@ -16,7 +16,6 @@ import {
   useDisclosure,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { useId } from "react";
 // Here we have used react-icons package for the icons
 import type { IconType } from "react-icons";
 import { AiOutlineClose, AiTwotoneThunderbolt } from "react-icons/ai";
@@ -28,7 +27,7 @@ import { MdTimeline } from "react-icons/md";
 import ThemeToggle from "./ThemeToggle";
 
 const navLinks = [
-  { name: "Home", path: "#" },
+  { name: "Home", path: "/" },
   { name: "APOD", path: "#" },
 ];
 
@@ -112,11 +111,10 @@ const MenuLink = ({ name, path, icon, onClose }: MenuLinkProps) => {
 
 const Navbar = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const uniqueId = useId();
 
   const menuProps = {
     bg: useColorModeValue("gray.200", "gray.700"),
-    color: useColorModeValue("blue.500", "blue.200"),
+    color: useColorModeValue("purple.500", "purple.200"),
   };
 
   const boxShadow = useColorModeValue(
@@ -127,7 +125,13 @@ const Navbar = () => {
   const background = useColorModeValue("rgb(255, 255, 255)", "rgb(26, 32, 44)");
 
   return (
-    <Box px={4} boxShadow="lg" width="100%">
+    <Box
+      position="fixed"
+      bg={useColorModeValue("white", "gray.700")}
+      px={4}
+      boxShadow="lg"
+      width="100%"
+    >
       <Flex
         h={16}
         alignItems="center"
@@ -148,7 +152,7 @@ const Navbar = () => {
             as={Link}
             size="sm"
             showBorder
-            borderColor="blue.400"
+            borderColor="purple.400"
             rounded="full"
             src="https://avatars2.githubusercontent.com/u/37842853?v=4"
           />
@@ -158,8 +162,9 @@ const Navbar = () => {
             display={{ base: "none", md: "flex" }}
             alignItems="center"
           >
-            {navLinks.map((link) => (
-              <NavLink key={uniqueId} {...link} onClose={onClose} />
+            {navLinks.map((link, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <NavLink key={link.name + index} {...link} onClose={onClose} />
             ))}
             {/* Dropdown Menu */}
             <Menu autoSelect={false} isLazy>
@@ -196,9 +201,10 @@ const Navbar = () => {
                     border="none"
                     boxShadow={boxShadow}
                   >
-                    {dropdownLinks.map((link) => (
+                    {dropdownLinks.map((link, index) => (
                       <MenuLink
-                        key={uniqueId}
+                        // eslint-disable-next-line react/no-array-index-key
+                        key={link.name + index}
                         name={link.name}
                         path={link.path}
                         icon={link.icon}
@@ -219,8 +225,9 @@ const Navbar = () => {
       {isOpen ? (
         <Box pb={4} display={["inherit", "inherit", "none"]}>
           <Stack as="nav" spacing={2}>
-            {navLinks.map((link) => (
-              <NavLink key={uniqueId} {...link} onClose={onClose} />
+            {navLinks.map((link, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <NavLink key={link.name + index} {...link} onClose={onClose} />
             ))}
           </Stack>
         </Box>
